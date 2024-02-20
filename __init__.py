@@ -18,37 +18,6 @@ def read():
 def messages():
     return render_template("messages.html")
 
-@app.route('/ajouter_message/', methods=['GET', 'POST'])
-def ajouter_client():
-    if request.method == 'POST':
-        # Récupérer les données du formulaire
-        email = request.form['email']
-        message = request.form['message']
-        
-
-        # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        if conn is not None:
-            cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
-            conn.commit()
-            conn.close()
-        else:
-            return 'Erreur de connexion à la base de données'
-
-        # Rediriger vers la page de consultation des clients après l'ajout
-        return redirect(url_for('https://elie0000.alwaysdata.net/'))
-
-    # Si la méthode est GET, simplement rendre le template du formulaire
-    return render_template('messages.html')
-
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions (à cacher par la suite)
-
-# Fonction pour créer une entrée "authentifie" dans la session de l'utilisateur
-def est_authentifie():
-    return session.get('authentifie')
-
-
 @app.route("/consultation/")
 def ReadBDD():
     conn = sqlite3.connect('database.db')
