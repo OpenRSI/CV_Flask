@@ -33,7 +33,7 @@ def get_post(post_id):
     data = cursor.fetchall()
     conn.close()
 
-    # Si la publication avec l'ID spécifié n'est pas trouvée, renvoi une réponse 404 Not Found
+    # Si la publication avec l'ID spécifié n'est pas trouvée, renvoie une réponse 404 Not Found
     if post is None:
         return jsonify(error='Post not found'), 404
 
