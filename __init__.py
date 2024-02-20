@@ -25,5 +25,19 @@ def ReadBDD():
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
+@app.route('/consultation/<int:post_id>')
+def get_post(post_id):
+    conn = sqlite3.connect('/home/elie0000/www/cv/database.db')
+    cursor = conn.cursor()
+    post = conn.execute('SELECT * FROM livres WHERE id = ?', (post_id,)).fetchone()
+    data = cursor.fetchall()
+    conn.close()
+
+    # Si la publication avec l'ID spécifié n'est pas trouvée, renvoie une réponse 404 Not Found
+    if post is None:
+        return jsonify(error='Post not found'), 404
+
+    return render_template('read_data.html', data=data)
+
 if(__name__ == "__main__"):
     app.run()
