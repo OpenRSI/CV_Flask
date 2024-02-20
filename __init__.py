@@ -18,7 +18,7 @@ def read():
 def messages():
     return render_template("messages.html")
 
-@app.route('/ajouter_client/', methods=['GET', 'POST'])
+@app.route('/ajouter_message/', methods=['GET', 'POST'])
 def ajouter_client():
     if request.method == 'POST':
         # Récupérer les données du formulaire
