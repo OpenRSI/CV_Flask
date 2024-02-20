@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/js/javascript.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un message</title>
 </head>
@@ -10,13 +13,11 @@
     <h2>Ajouter un message</h2>
 
     <form action="/ajouter_message" method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br>
 
-        <label for="prenom">Prénom :</label>
+        <label for="prenom">Email :</label>
         <input type="text" id="prenom" name="prenom" required><br>
 
-        <label for="adresse">Adresse :</label>
+        <label for="adresse">Message :</label>
         <input type="text" id="adresse" name="adresse" required><br>
 
         <input type="submit" value="Ajouter">
