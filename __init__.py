@@ -1,5 +1,7 @@
-from flask import Flask, render_template, jsonify
-import json
+from flask import Flask, render_template_string, render_template, jsonify
+from flask import Flask, render_template, request, redirect
+from flask import json
+from urllib.request import urlopen
 import sqlite3
 
 app = Flask(__name__) #creating flask app name
@@ -21,17 +23,17 @@ def resume_template():
     return render_template("resume_template.html")
 
 # Création d'une nouvelle route pour la lecture de la BDD
-@app.route('/lecture/')
+# Création d'une nouvelle route pour la lecture de la BDD
+@app.route("/consultation/")
 def ReadBDD():
-    conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM messages').fetchall()
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM messages;')
+    data = cursor.fetchall()
     conn.close()
-
-    # Convertit la liste de livre en un format JSON
-    json_posts = [{'id': post['id'], 'email': post['email'], 'message': post['message']} for post in posts]
-
-    # Renvoie la réponse JSON
-    return jsonify(posts=json_posts)
+    
+    # Rendre le template HTML et transmettre les données
+    return render_template('read_data.html', data=data)
 
 if(__name__ == "__main__"):
     app.run()
