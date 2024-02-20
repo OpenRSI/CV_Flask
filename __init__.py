@@ -10,10 +10,6 @@ app = Flask(__name__)
 def home():
     return render_template("cv.html")
 
-@app.route('/read')
-def read():
-    return render_template("read_data.html")
-
 @app.route('/messages')
 def messages():
     return render_template("messages.html")
