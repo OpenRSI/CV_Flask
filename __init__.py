@@ -30,14 +30,14 @@ def ajouter_client():
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         if conn is not None:
-            cursor.execute('INSERT INTO clients (nom, prenom, adresse) VALUES (?, ?, ?)', (nom, prenom, adresse))
+            cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
             conn.commit()
             conn.close()
         else:
             return 'Erreur de connexion à la base de données'
 
         # Rediriger vers la page de consultation des clients après l'ajout
-        return redirect(url_for('/'))
+        return redirect(url_for('https://elie0000.alwaysdata.net/'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
     return render_template('messages.html')
