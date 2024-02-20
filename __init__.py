@@ -14,6 +14,41 @@ def home():
 def read():
     return render_template("read_data.html")
 
+@app.route('/messages')
+def messages():
+    return render_template("messages.html")
+
+@app.route('/ajouter_client/', methods=['GET', 'POST'])
+def ajouter_client():
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        email = request.form['email']
+        message = request.form['message']
+        
+
+        # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        if conn is not None:
+            cursor.execute('INSERT INTO clients (nom, prenom, adresse) VALUES (?, ?, ?)', (nom, prenom, adresse))
+            conn.commit()
+            conn.close()
+        else:
+            return 'Erreur de connexion à la base de données'
+
+        # Rediriger vers la page de consultation des clients après l'ajout
+        return redirect(url_for('/'))
+
+    # Si la méthode est GET, simplement rendre le template du formulaire
+    return render_template('messages.html')
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions (à cacher par la suite)
+
+# Fonction pour créer une entrée "authentifie" dans la session de l'utilisateur
+def est_authentifie():
+    return session.get('authentifie')
+
+
 @app.route("/consultation/")
 def ReadBDD():
     conn = sqlite3.connect('database.db')
