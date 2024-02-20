@@ -25,7 +25,7 @@ def messages():
         conn.close()
 
         # Rediriger vers la page de consultation des messages après l'ajout
-        return render_template('read_data.html')
+        return redirect(url_for('ReadBDD'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
     return render_template('messages.html')
