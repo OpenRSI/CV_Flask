@@ -28,7 +28,7 @@ def messages():
         return redirect(url_for('ReadBDD'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
-    return render_template('read_data.html')
+    return render_template('messages.html')
 
 @app.route("/consultation/")
 def ReadBDD():
