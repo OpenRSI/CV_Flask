@@ -3,8 +3,8 @@ from flask import Flask, render_template, request, redirect
 from flask import json
 from urllib.request import urlopen
 import sqlite3
-
-app = Flask(__name__) #creating flask app name
+                                                                                                                                       
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -14,8 +14,6 @@ def home():
 def read():
     return render_template("read_data.html")
 
-
-# Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
     conn = sqlite3.connect('database.db')
