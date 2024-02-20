@@ -18,6 +18,10 @@ def resume_1():
 def resume_2():
     return render_template("cv.html")
 
+@app.route('/read')
+def read():
+    return render_template("read_data.html")
+
 @app.route('/resume_template')
 def resume_template():
     return render_template("resume_template.html")
