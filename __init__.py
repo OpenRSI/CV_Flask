@@ -10,9 +10,25 @@ app = Flask(__name__)
 def home():
     return render_template("cv.html")
 
-@app.route('/messages')
+@app.route('/messages', methods=['GET', 'POST'])
 def messages():
-    return render_template("messages.html")
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        email = request.form['email']
+        message = request.form['message']
+
+        # Insérer les données dans la base de données
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
+        conn.commit()
+        conn.close()
+
+        # Rediriger vers la page de consultation des messages après l'ajout
+        return redirect(url_for('ReadBDD'))
+
+    # Si la méthode est GET, simplement rendre le template du formulaire
+    return render_template('messages.html')
 
 @app.route("/consultation/")
 def ReadBDD():
@@ -36,28 +52,6 @@ def Readfiche(post_id):
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
-@app.route('/messages/', methods=['GET', 'POST'])
-def ajouter_client():
-    if request.method == 'POST':
-        # Récupérer les données du formulaire
-        prenom = request.form['email']
-        adresse = request.form['message']
-
-        # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        if conn is not None:
-            cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
-            conn.commit()
-            conn.close()
-        else:
-            return 'Erreur de connexion à la base de données'
-
-        # Rediriger vers la page de consultation des clients après l'ajout
-        return redirect(url_for('/'))
-
-    # Si la méthode est GET, simplement rendre le template du formulaire
-    return render_template('messages.html')
 
 
 if(__name__ == "__main__"):
