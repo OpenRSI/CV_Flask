@@ -16,7 +16,7 @@ def messages():
 
 @app.route("/consultation/")
 def ReadBDD():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('/home/elie0000/www/cv/database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM messages;')
     data = cursor.fetchall()
