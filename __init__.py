@@ -4,6 +4,11 @@ import sqlite3
 
 app = Flask(__name__) #creating flask app name
 
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
 @app.route('/')
 def home():
     return render_template("index.html")
@@ -22,11 +27,6 @@ def resume_template():
 
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route('/lecture/')
-def get_db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
 def ReadBDD():
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM messages').fetchall()
