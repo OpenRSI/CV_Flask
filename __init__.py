@@ -29,7 +29,7 @@ def ReadBDD():
 def get_post(post_id):
     conn = sqlite3.connect('/home/elie0000/www/cv/database.db')
     cursor = conn.cursor()
-    post = conn.execute('SELECT * FROM livres WHERE id = ?', (post_id,)).fetchone()
+    post = conn.execute('SELECT * FROM messages WHERE id = ?', (post_id,)).fetchone()
     data = cursor.fetchall()
     conn.close()
 
