@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, render_template, jsonify
+from flask import Flask, render_template_string, render_template, jsonify, url_for
 from flask import Flask, render_template, request, redirect
 from flask import json
 from urllib.request import urlopen
@@ -28,7 +28,7 @@ def messages():
                 conn.commit()
 
             # Rediriger vers la page de consultation des messages après l'ajout
-            return redirect(url_for('ReadBDD'))
+            return redirect(url_for('read_data.html'))
 
         # Si la méthode est GET, simplement rendre le template du formulaire
         return render_template('messages.html')
