@@ -62,6 +62,16 @@ def Readfiche(post_id):
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
+@app.route('/delete_all', methods=['POST'])
+def delete_all():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM messages')
+    conn.commit()
+    conn.close()
+    return redirect(url_for('ReadBDD'))
+
+
 
 
 if(__name__ == "__main__"):
