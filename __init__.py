@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect
 from flask import json
 from urllib.request import urlopen
 import sqlite3
+import traceback
                                                                                                                                        
 app = Flask(__name__)
 
@@ -10,24 +11,33 @@ app = Flask(__name__)
 def home():
     return render_template("cv.html")
 
+
+
 @app.route('/messages', methods=['GET', 'POST'])
 def messages():
-    if request.method == 'POST':
-        # Récupérer les données du formulaire
-        email = request.form['email']
-        message = request.form['message']
+    try:
+        if request.method == 'POST':
+            # Récupérer les données du formulaire
+            email = request.form['email']
+            message = request.form['message']
 
-        # Insérer les données dans la base de données
-        with sqlite3.connect('database.db') as conn:
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
-            conn.commit()
+            # Insérer les données dans la base de données
+            with sqlite3.connect('database.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
+                conn.commit()
 
-        # Rediriger vers la page de consultation des messages après l'ajout
-        return redirect(url_for('ReadBDD'))
+            # Rediriger vers la page de consultation des messages après l'ajout
+            return redirect(url_for('ReadBDD'))
 
-    # Si la méthode est GET, simplement rendre le template du formulaire
-    return render_template('messages.html')
+        # Si la méthode est GET, simplement rendre le template du formulaire
+        return render_template('messages.html')
+
+    except Exception as e:
+        print("Une erreur s'est produite : ", str(e))
+        print(traceback.format_exc())
+        return str(e), 500
+
 
 
 @app.route("/consultation/")
