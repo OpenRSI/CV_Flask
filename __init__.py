@@ -11,8 +11,6 @@ app = Flask(__name__)
 def home():
     return render_template("cv.html")
 
-
-
 @app.route('/messages', methods=['GET', 'POST'])
 def messages():
     try:
