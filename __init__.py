@@ -18,17 +18,17 @@ def messages():
         message = request.form['message']
 
         # Insérer les données dans la base de données
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
-        conn.commit()
-        conn.close()
+        with sqlite3.connect('database.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
+            conn.commit()
 
         # Rediriger vers la page de consultation des messages après l'ajout
         return redirect(url_for('ReadBDD'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
     return render_template('messages.html')
+
 
 @app.route("/consultation/")
 def ReadBDD():
