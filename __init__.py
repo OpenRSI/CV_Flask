@@ -16,7 +16,7 @@ def home():
 def messages():
     try:
         if request.method == 'POST':
-            # Récupérer les données du formulaire
+            # Récupérer les données du formulaire test test
             email = request.form['email']
             message = request.form['message']
 
