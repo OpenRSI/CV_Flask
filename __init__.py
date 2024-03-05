@@ -11,6 +11,17 @@ app = Flask(__name__)
 def home():
     return render_template("cv.html")
 
+@app.route('/delete_all', methods=['GET', 'POST'])
+def delete_all():
+    if request.method == 'POST':
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM messages')
+        conn.commit()
+        conn.close()
+    return redirect(url_for('ReadBDD'))
+
+
 @app.route('/messages', methods=['GET', 'POST'])
 def messages():
     try:
