@@ -7,7 +7,7 @@
     <script src="../static/js/javascript.js"></script>
 </head>
 <body>
-    <h1>Liste des Messages test test </h1>
+    <h1>Liste des Messages</h1>
     <table>
         <tr>
             <th>ID</th>
@@ -22,7 +22,7 @@
             <td>{{ row[3] }}</td>
         </tr>
         {% endfor %}
-    </table>
+    </table><br><br>
     <a class="btn btn-primary" href="{{ url_for('delete_all') }}">Effacer la base de données</a>
   
 </body>
